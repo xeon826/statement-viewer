@@ -1,4 +1,8 @@
 import pandas as pd
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 
 def group_transactions_by_date(
@@ -34,17 +38,7 @@ def group_transactions_by_date(
 csv_file = "statement.csv"
 
 # List of strings to exclude from the "Name" column
-exclusion_list = [
-    "PENNYMAC",
-    "WITHDRAWAL ATT",
-    "SERVICE FINANCE",
-    "MINT MOBILE",
-    "AMERENMO",
-    "STATE FARM",
-    "ELECTRONIC WITHDRAWAL Spire",
-    "OPENAI",
-    '365 RETAIL'
-]
+exclusion_list = os.getenv('EXCLUSION_LIST').split(',')
 
 grouped_transactions = group_transactions_by_date(
     csv_file, "Date", "Amount", "Name", exclusion_list
